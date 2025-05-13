@@ -81,9 +81,9 @@ const GrandmasterProfile: React.FC = () => {
 
   if (loading) {
     return (
-      <div className='min-h-screen bg-gradient-to-b from-gray-50 to-white p-5 font-sans'>
-        <div className='mx-auto flex h-64 max-w-2xl items-center justify-center rounded-xl border border-gray-200 bg-white p-8 shadow-xl ring-1 ring-gray-200'>
-          <div className='flex items-center space-x-3 text-lg text-gray-600'>
+      <div className='min-h-screen bg-gradient-to-b from-[#22272e] via-[#2d333b] to-[#22272e] p-5 font-sans'>
+        <div className='mx-auto flex h-64 max-w-2xl items-center justify-center rounded-xl border border-[#444c56] bg-[#2d333b] p-8 shadow-xl ring-1 ring-[#444c56]'>
+          <div className='flex items-center space-x-3 text-lg text-gray-300'>
             <svg
               className='h-6 w-6 animate-spin text-blue-500'
               xmlns='http://www.w3.org/2000/svg'
@@ -113,11 +113,11 @@ const GrandmasterProfile: React.FC = () => {
 
   if (error) {
     return (
-      <div className='min-h-screen bg-gradient-to-b from-gray-50 to-white p-5 font-sans'>
-        <div className='mx-auto mb-4 w-full max-w-2xl rounded-xl border border-red-200 bg-white p-8 shadow-xl ring-1 ring-red-200'>
-          <div className='text-center text-lg text-red-600'>
+      <div className='min-h-screen bg-gradient-to-b from-[#22272e] via-[#2d333b] to-[#22272e] p-5 font-sans'>
+        <div className='mx-auto mb-4 w-full max-w-2xl rounded-xl border border-red-500 bg-[#2d333b] p-8 shadow-xl ring-1 ring-red-500'>
+          <div className='text-center text-lg text-red-400'>
             <svg
-              className='mx-auto mb-4 h-12 w-12 text-red-400'
+              className='mx-auto mb-4 h-12 w-12 text-red-500'
               fill='none'
               viewBox='0 0 24 24'
               stroke='currentColor'
@@ -133,7 +133,7 @@ const GrandmasterProfile: React.FC = () => {
             <div className='mt-6'>
               <Link
                 to='/'
-                className='inline-flex items-center gap-2 rounded-lg bg-red-50 px-4 py-2 text-sm font-medium text-red-700 transition-all hover:bg-red-100'
+                className='inline-flex items-center gap-2 rounded-lg bg-red-500/20 px-4 py-2 text-sm font-medium text-red-400 transition-all hover:bg-red-500/30'
               >
                 <svg
                   className='h-4 w-4'
@@ -159,14 +159,14 @@ const GrandmasterProfile: React.FC = () => {
 
   if (!profile) {
     return (
-      <div className='min-h-screen bg-gradient-to-b from-gray-50 to-white p-5 font-sans'>
-        <div className='mx-auto mb-4 w-full max-w-2xl rounded-xl border border-gray-200 bg-white p-8 shadow-xl ring-1 ring-gray-200'>
-          <div className='text-center text-lg text-gray-600'>
+      <div className='min-h-screen bg-gradient-to-b from-[#22272e] via-[#2d333b] to-[#22272e] p-5 font-sans'>
+        <div className='mx-auto mb-4 w-full max-w-2xl rounded-xl border border-[#444c56] bg-[#2d333b] p-8 shadow-xl ring-1 ring-[#444c56]'>
+          <div className='text-center text-lg text-gray-300'>
             No profile data available for {username}.
             <div className='mt-6'>
               <Link
                 to='/'
-                className='inline-flex items-center gap-2 rounded-lg bg-gray-50 px-4 py-2 text-sm font-medium text-gray-700 transition-all hover:bg-gray-100'
+                className='inline-flex items-center gap-2 rounded-lg bg-[#444c56] px-4 py-2 text-sm font-medium text-gray-300 transition-all hover:bg-[#444c56]/80'
               >
                 <svg
                   className='h-4 w-4'
@@ -191,12 +191,12 @@ const GrandmasterProfile: React.FC = () => {
   }
 
   return (
-    <div className='min-h-screen bg-gradient-to-b from-gray-50 to-white p-5 font-sans'>
-      <div className='mx-auto mb-4 w-full max-w-2xl rounded-xl border border-gray-200 bg-white p-8 shadow-xl ring-1 ring-gray-200'>
+    <div className="min-h-screen bg-gradient-to-br from-[#22272e] via-[#2d333b] to-[#22272e] p-6 font-sans">
+      <div className="mx-auto mb-4 w-full max-w-2xl rounded-3xl bg-[#22272e]/90 p-8 shadow-2xl ring-1 ring-[#444c56] backdrop-blur-md backdrop-saturate-150">
         <button
           type='button'
           onClick={() => navigate('/?fromProfile=1')}
-          className='mb-6 inline-flex items-center gap-2 rounded-lg bg-gray-50 px-4 py-2 text-sm font-medium text-gray-700 transition-all hover:bg-gray-100'
+          className='mb-6 inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-bold text-white shadow transition-all hover:scale-105 hover:bg-blue-700'
         >
           <svg
             className='h-4 w-4'
@@ -219,41 +219,39 @@ const GrandmasterProfile: React.FC = () => {
             <img
               src={profile.avatar}
               alt={`${profile.name || profile.username}'s avatar`}
-              className='mx-auto mb-4 h-32 w-32 rounded-full border-4 border-gray-50 object-cover shadow-md'
+              className='mx-auto mb-4 h-32 w-32 rounded-full border-4 border-blue-700 object-cover shadow-lg ring-4 ring-white/10'
             />
           )}
-          <h1 className='mb-1 text-3xl font-bold text-gray-900'>
+          <h1 className='mb-1 text-4xl font-extrabold text-white drop-shadow-lg font-mono'>
             {profile.name || profile.username}
           </h1>
-          <p className='text-lg text-gray-500'>@{profile.username}</p>
+          <p className='text-lg text-blue-300 font-mono'>@{profile.username}</p>
         </div>
 
         <div className='grid gap-6 md:grid-cols-2'>
-          <div className='rounded-xl bg-gray-50 p-6'>
-            <h2 className='mb-4 text-sm font-medium tracking-wider text-gray-500 uppercase'>
-              Profile Info
-            </h2>
+          <div className='rounded-xl bg-[#2d333b]/80 p-6 backdrop-blur-md'>
+            <h2 className='mb-4 text-sm font-bold tracking-wider text-blue-400 uppercase'>Profile Info</h2>
             <div className='space-y-4'>
               {profile.title && (
                 <div className='flex items-center justify-between'>
-                  <span className='text-gray-600'>Title</span>
-                  <span className='inline-flex items-center rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-800'>
+                  <span className='text-gray-300'>Title</span>
+                  <span className='inline-flex items-center rounded-full bg-blue-900/60 px-3 py-1 text-sm font-medium text-blue-200'>
                     {profile.title}
                   </span>
                 </div>
               )}
               {profile.location && (
                 <div className='flex items-center justify-between'>
-                  <span className='text-gray-600'>Location</span>
-                  <span className='font-medium text-gray-900'>
+                  <span className='text-gray-300'>Location</span>
+                  <span className='font-medium text-white'>
                     {profile.location}
                   </span>
                 </div>
               )}
               {profile.country && (
                 <div className='flex items-center justify-between'>
-                  <span className='text-gray-600'>Country</span>
-                  <span className='font-medium text-gray-900'>
+                  <span className='text-gray-300'>Country</span>
+                  <span className='font-medium text-white'>
                     {profile.country
                       .substring(profile.country.lastIndexOf('/') + 1)
                       .toUpperCase()}
@@ -262,21 +260,18 @@ const GrandmasterProfile: React.FC = () => {
               )}
             </div>
           </div>
-
-          <div className='rounded-xl bg-gray-50 p-6'>
-            <h2 className='mb-4 text-sm font-medium tracking-wider text-gray-500 uppercase'>
-              Stats
-            </h2>
+          <div className='rounded-xl bg-[#2d333b]/80 p-6 backdrop-blur-md'>
+            <h2 className='mb-4 text-sm font-bold tracking-wider text-blue-400 uppercase'>Stats</h2>
             <div className='space-y-4'>
               <div className='flex items-center justify-between'>
-                <span className='text-gray-600'>Followers</span>
-                <span className='inline-flex items-center rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-800'>
+                <span className='text-gray-300'>Followers</span>
+                <span className='inline-flex items-center rounded-full bg-blue-900/60 px-3 py-1 text-sm font-medium text-blue-200'>
                   {profile.followers.toLocaleString()}
                 </span>
               </div>
               <div className='flex items-center justify-between'>
-                <span className='text-gray-600'>Member Since</span>
-                <span className='font-medium text-gray-900'>
+                <span className='text-gray-300'>Member Since</span>
+                <span className='font-medium text-white'>
                   {new Date(profile.joined * 1000).toLocaleDateString(
                     undefined,
                     {
@@ -289,8 +284,8 @@ const GrandmasterProfile: React.FC = () => {
               </div>
               {profile.league && (
                 <div className='flex items-center justify-between'>
-                  <span className='text-gray-600'>League</span>
-                  <span className='inline-flex items-center rounded-full bg-purple-100 px-3 py-1 text-sm font-medium text-purple-800'>
+                  <span className='text-gray-300'>League</span>
+                  <span className='inline-flex items-center rounded-full bg-blue-900/60 px-3 py-1 text-sm font-medium text-blue-200'>
                     {profile.league}
                   </span>
                 </div>
@@ -300,10 +295,10 @@ const GrandmasterProfile: React.FC = () => {
         </div>
 
         {timeSinceOnline && (
-          <div className='mt-6 rounded-xl bg-blue-50 p-4 text-center'>
-            <p className='text-gray-700'>
+          <div className='mt-6 rounded-xl bg-blue-900/30 p-4 text-center'>
+            <p className='text-gray-200'>
               <span className='font-medium'>Last Online:</span>
-              <span className='ml-2 font-mono text-lg text-blue-700'>
+              <span className='ml-2 font-mono text-lg text-blue-300'>
                 {timeSinceOnline}
               </span>
             </p>
