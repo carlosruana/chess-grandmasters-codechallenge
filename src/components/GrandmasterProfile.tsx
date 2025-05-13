@@ -1,37 +1,43 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import type { PlayerProfileResponse } from '../types';
+import React, { useState, useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import type { PlayerProfile } from '../types';
 
 const GrandmasterProfile: React.FC = () => {
   const { username } = useParams<{ username: string }>();
-  const [profile, setProfile] = useState<PlayerProfileResponse | null>(null);
+  const [profile, setProfile] = useState<PlayerProfile | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [timeSinceOnline, setTimeSinceOnline] = useState<string>('');
 
   useEffect(() => {
     if (!username) return;
 
     const fetchProfile = async () => {
+      setLoading(true);
+      setError(null);
+      setProfile(null); // Clear previous profile data
+      setTimeSinceOnline(''); // Clear previous time
       try {
-        setLoading(true);
-        setError(null);
-        const response = await fetch(`https://api.chess.com/pub/player/${username}`);
+        const response = await fetch(
+          `https://api.chess.com/pub/player/${username}`
+        );
         if (!response.ok) {
           if (response.status === 404) {
-            throw new Error(`Player "${username}" not found.`);
-          } else {
-            throw new Error(`Error fetching data: ${response.statusText} (status: ${response.status})`);
+            throw new Error(`Player profile not found for "${username}".`);
           }
+          throw new Error(
+            `Error fetching profile: ${response.statusText} (status: ${response.status})`
+          );
         }
-        const data: PlayerProfileResponse = await response.json();
+        const data: PlayerProfile = await response.json();
         setProfile(data);
       } catch (err) {
         if (err instanceof Error) {
           setError(err.message);
         } else {
-          setError('An unknown error occurred');
+          setError('An unknown error occurred while fetching the profile.');
         }
-        console.error(`Failed to fetch profile for ${username}:`, err);
+        setProfile(null);
       }
       setLoading(false);
     };
@@ -39,73 +45,140 @@ const GrandmasterProfile: React.FC = () => {
     fetchProfile();
   }, [username]);
 
+  useEffect(() => {
+    if (!profile?.last_online) {
+      setTimeSinceOnline(''); // Clear if no last_online timestamp
+      return;
+    }
+
+    const lastOnlineTimestamp = profile.last_online * 1000; // Convert to milliseconds
+
+    const updateClock = () => {
+      const now = Date.now();
+      const diffSeconds = Math.max(
+        0,
+        Math.floor((now - lastOnlineTimestamp) / 1000)
+      );
+
+      const hours = Math.floor(diffSeconds / 3600);
+      const minutes = Math.floor((diffSeconds % 3600) / 60);
+      const seconds = diffSeconds % 60;
+
+      const formattedTime =
+        `${String(hours).padStart(2, '0')}:` +
+        `${String(minutes).padStart(2, '0')}:` +
+        `${String(seconds).padStart(2, '0')} ago`;
+
+      setTimeSinceOnline(formattedTime);
+    };
+
+    updateClock(); // Initial call to set time immediately
+    const intervalId = setInterval(updateClock, 1000); // Update every second
+
+    return () => clearInterval(intervalId); // Cleanup interval on unmount or profile change
+  }, [profile?.last_online]);
+
   if (loading) {
-    return <div className="text-center text-lg p-5 text-gray-600">Loading profile for {username}...</div>;
+    return (
+      <div className='p-5 text-center text-lg text-gray-600'>
+        Loading profile for {username}...
+      </div>
+    );
   }
 
   if (error) {
-    return <div className="text-center text-lg p-5 text-red-600">Error: {error}</div>;
+    return (
+      <div className='p-5 text-center text-lg text-red-600'>
+        Error: {error}
+        <div className='mt-4'>
+          <Link
+            to='/'
+            className='rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600'
+          >
+            Back to Grandmaster List
+          </Link>
+        </div>
+      </div>
+    );
   }
 
   if (!profile) {
-    return <div className="text-center text-lg p-5 text-gray-600">No profile data available for {username}.</div>;
+    return (
+      <div className='p-5 text-center text-lg text-gray-600'>
+        No profile data available for {username}.
+        <div className='mt-4'>
+          <Link
+            to='/'
+            className='rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600'
+          >
+            Back to Grandmaster List
+          </Link>
+        </div>
+      </div>
+    );
   }
 
-  // Helper function to format Unix timestamp to a readable date/time
-  const formatTimestamp = (timestamp: number) => {
-    return new Date(timestamp * 1000).toLocaleString();
-  };
-
   return (
-    <div className="p-5 font-sans max-w-2xl mx-auto bg-white shadow-md rounded-lg">
-      <h1 className="text-center text-gray-800 text-3xl font-bold mb-6">
-        {profile.name ? `${profile.name} (${profile.username})` : profile.username}
-        {profile.title && <span className="text-xl text-yellow-500 ml-2">{profile.title}</span>}
-      </h1>
-      <div className="flex flex-col items-center md:flex-row md:items-start">
+    <div className='flex flex-col items-center p-5 font-sans'>
+      <div className='mb-4 w-full max-w-md rounded-lg border border-gray-200 bg-white p-6 shadow-md'>
+        <Link
+          to='/'
+          className='mb-4 inline-block text-blue-500 hover:text-blue-700'
+        >
+          &larr; Back to Grandmaster List
+        </Link>
         {profile.avatar && (
           <img
             src={profile.avatar}
-            alt={`${profile.username}'s avatar`}
-            className="w-32 h-32 rounded-full mb-4 md:mb-0 md:mr-6 border-2 border-gray-300"
+            alt={`${profile.name || profile.username}'s avatar`}
+            className='mx-auto mb-4 h-32 w-32 rounded-full border-2 border-gray-300 object-cover shadow-sm'
           />
         )}
-        <div className="text-gray-700 space-y-2 text-center md:text-left">
-          <p>
-            <strong>Username:</strong> {profile.username}
-          </p>
-          {profile.name && (
+        <h1 className='mb-1 text-center text-3xl font-bold text-gray-800'>
+          {profile.name || profile.username}
+        </h1>
+        <p className='mb-4 text-center text-lg text-gray-500'>
+          @{profile.username}
+        </p>
+
+        <div className='space-y-2 text-gray-700'>
+          {profile.title && (
             <p>
-              <strong>Name:</strong> {profile.name}
+              <span className='font-semibold'>Title:</span> {profile.title}
+            </p>
+          )}
+          {profile.location && (
+            <p>
+              <span className='font-semibold'>Location:</span>{' '}
+              {profile.location}
+            </p>
+          )}
+          {profile.country && (
+            <p>
+              <span className='font-semibold'>Country:</span>{' '}
+              {profile.country
+                .substring(profile.country.lastIndexOf('/') + 1)
+                .toUpperCase()}
             </p>
           )}
           <p>
-            <strong>Profile URL:</strong> <a href={profile.url} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">{profile.url}</a>
+            <span className='font-semibold'>Followers:</span>{' '}
+            {profile.followers}
           </p>
           <p>
-            <strong>Followers:</strong> {profile.followers.toLocaleString()}
+            <span className='font-semibold'>Joined:</span>{' '}
+            {new Date(profile.joined * 1000).toLocaleDateString()}
           </p>
-          <p>
-            <strong>Country:</strong> <a href={`https://www.chess.com/country/${profile.country.split('/').pop()}`} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">{profile.country.split('/').pop()?.toUpperCase()}</a>
-          </p>
-          <p>
-            <strong>Last Online:</strong> {formatTimestamp(profile.last_online)}
-          </p>
-          <p>
-            <strong>Joined:</strong> {formatTimestamp(profile.joined)}
-          </p>
-          <p>
-            <strong>Status:</strong> <span className={`px-2 py-1 text-sm font-semibold rounded-full ${profile.status === 'closed:fair_play_violations' ? 'bg-red-200 text-red-800' : 'bg-green-200 text-green-800'}`}>{profile.status}</span>
-          </p>
-          {profile.is_streamer && profile.twitch_url && (
-            <p>
-              <strong>Twitch:</strong> <a href={profile.twitch_url} target="_blank" rel="noopener noreferrer" className="text-purple-600 hover:underline">{profile.twitch_url}</a>
-            </p>
-          )}
-          {profile.league && (
-            <p>
-              <strong>League:</strong> {profile.league}
-            </p>
+          {/* Last Online Clock Implementation */}
+          {timeSinceOnline && (
+            <div className='mt-4 border-t border-gray-200 pt-4'>
+              <p className='text-center text-gray-600'>
+                <span className='font-semibold'>Last Online:</span>
+                <span className='ml-2 font-mono text-lg text-blue-600'>
+                  {timeSinceOnline}
+                </span>
+              </p>
+            </div>
           )}
         </div>
       </div>

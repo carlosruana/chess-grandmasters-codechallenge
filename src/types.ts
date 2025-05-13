@@ -2,21 +2,21 @@ export interface GrandmasterListResponse {
   players: string[];
 }
 
-export interface PlayerProfileResponse {
-  avatar?: string;
-  player_id: number;
-  '@id': string; // API URL for the player
-  url: string; // Chess.com profile URL
-  name?: string; // Full name, might not always be present
+export interface PlayerProfile {
+  '@id': string;
+  url: string;
   username: string;
+  player_id: number;
   title?: string;
-  followers: number;
-  country: string; // API URL for country profile
-  last_online: number; // Unix timestamp
-  joined: number; // Unix timestamp
   status: string;
+  name?: string;
+  avatar?: string;
+  location?: string;
+  country: string; // This is a URL to country profile, might need to be string
+  joined: number; // Timestamp
+  last_online: number; // Timestamp - this is what we need!
+  followers: number;
   is_streamer: boolean;
   twitch_url?: string;
-  verified: boolean;
-  league?: string;
+  fide?: number;
 }
