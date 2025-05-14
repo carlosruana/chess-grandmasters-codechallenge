@@ -1,4 +1,3 @@
-import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import GrandmasterList from './components/GrandmasterList';
 import GrandmasterProfile from './components/GrandmasterProfile';
