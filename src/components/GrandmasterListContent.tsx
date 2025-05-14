@@ -31,6 +31,21 @@ const GrandmasterListContent: React.FC<GrandmasterListContentProps> = ({
   loadMoreItems,
   ready,
 }) => {
+  // Ref to access the list's scroll position
+  const listRef = React.useRef<List>(null);
+
+  // Callback to save scroll position
+  const saveScrollPosition = (index: number) => {
+    const outer = listRef.current?._outerRef as HTMLDivElement | undefined;
+    if (outer) {
+      sessionStorage.setItem(
+        'grandmaster_list_scroll',
+        String(outer.scrollTop)
+      );
+      sessionStorage.setItem('grandmaster_list_index', String(index));
+    }
+  };
+
   return (
     <div className='mx-auto max-w-3xl overflow-x-hidden'>
       {ready && (
@@ -43,6 +58,7 @@ const GrandmasterListContent: React.FC<GrandmasterListContentProps> = ({
           {({ onItemsRendered }) => (
             <List
               key={listKey}
+              ref={listRef}
               height={WINDOW_HEIGHT}
               itemCount={hasNextPage ? itemCount + 10 : itemCount}
               itemSize={ITEM_SIZE}
@@ -52,7 +68,12 @@ const GrandmasterListContent: React.FC<GrandmasterListContentProps> = ({
               className='overflow-x-hidden'
             >
               {({ index, style }) => (
-                <Row index={index} style={style} grandmasters={grandmasters} />
+                <Row
+                  index={index}
+                  style={style}
+                  grandmasters={grandmasters}
+                  saveScrollPosition={saveScrollPosition}
+                />
               )}
             </List>
           )}

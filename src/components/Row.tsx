@@ -8,9 +8,15 @@ interface RowProps {
   index: number;
   style: React.CSSProperties;
   grandmasters: GrandMaster[];
+  saveScrollPosition: (index: number) => void;
 }
 
-const Row: React.FC<RowProps> = ({ index, style, grandmasters }) => {
+const Row: React.FC<RowProps> = ({
+  index,
+  style,
+  grandmasters,
+  saveScrollPosition,
+}) => {
   const gm = grandmasters[index];
   if (!gm) {
     return (
@@ -47,7 +53,7 @@ const Row: React.FC<RowProps> = ({ index, style, grandmasters }) => {
       <Link
         to={`/player/${gm.username}`}
         onClick={() => {
-          sessionStorage.setItem(INDEX_KEY, String(index));
+          saveScrollPosition(index);
         }}
         className='flex h-full items-center justify-between rounded-2xl bg-transparent px-4 py-4 shadow transition-all duration-200 hover:bg-[#2d333b] hover:shadow-lg'
       >
