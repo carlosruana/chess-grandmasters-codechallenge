@@ -105,26 +105,26 @@ const GrandmasterList: React.FC = () => {
       return (
         <div
           style={style}
-          className="flex items-center justify-center border-b border-[#444c56] bg-[#2d333b] py-3 text-sm text-gray-300 backdrop-blur-md"
+          className='flex items-center justify-center border-b border-[#444c56] bg-[#2d333b] py-3 text-sm text-gray-300 backdrop-blur-md'
         >
           <svg
-            className="mr-3 -ml-1 h-5 w-5 animate-spin text-blue-500"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
+            className='mr-3 -ml-1 h-5 w-5 animate-spin text-blue-500'
+            xmlns='http://www.w3.org/2000/svg'
+            fill='none'
+            viewBox='0 0 24 24'
           >
             <circle
-              className="opacity-25"
-              cx="12"
-              cy="12"
-              r="10"
-              stroke="currentColor"
-              strokeWidth="4"
+              className='opacity-25'
+              cx='12'
+              cy='12'
+              r='10'
+              stroke='currentColor'
+              strokeWidth='4'
             ></circle>
             <path
-              className="opacity-75"
-              fill="currentColor"
-              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              className='opacity-75'
+              fill='currentColor'
+              d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z'
             ></path>
           </svg>
           Loading...
@@ -144,24 +144,29 @@ const GrandmasterList: React.FC = () => {
               sessionStorage.setItem(INDEX_KEY, String(index));
             }
           }}
-          className="flex h-full items-center justify-between rounded-2xl bg-transparent px-4 py-4 shadow transition-all duration-200 hover:bg-[#2d333b] hover:shadow-lg"
+          className='flex h-full items-center justify-between rounded-2xl bg-transparent px-4 py-4 shadow transition-all duration-200 hover:bg-[#2d333b] hover:shadow-lg'
         >
-          <div className="flex flex-col gap-1">
-            <div className="flex items-center gap-3">
-              <span className="inline-flex items-center justify-center rounded-full bg-blue-700/80 px-3 py-1 text-xs font-bold uppercase tracking-wider text-white shadow">
+          <div className='flex flex-col gap-1'>
+            <div className='flex items-center gap-3'>
+              <span className='inline-flex items-center justify-center rounded-full bg-blue-700/80 px-3 py-1 text-xs font-bold tracking-wider text-white uppercase shadow'>
                 {gm.title}
               </span>
-              <span className="font-extrabold text-lg text-white drop-shadow-sm font-mono">
+              <span className='font-mono text-lg font-extrabold text-white drop-shadow-sm'>
                 {gm.name}
               </span>
             </div>
-            <span className="text-xs text-blue-300 font-mono">@{gm.username}</span>
+            <span className='font-mono text-xs text-blue-300'>
+              @{gm.username}
+            </span>
           </div>
-          <div className="flex flex-col items-end gap-1 text-right">
-            <div className="text-base font-bold text-blue-400">
-              {gm.followers.toLocaleString()} <span className="text-xs font-normal text-blue-700">followers</span>
+          <div className='flex flex-col items-end gap-1 text-right'>
+            <div className='text-base font-bold text-blue-400'>
+              {gm.followers.toLocaleString()}{' '}
+              <span className='text-xs font-normal text-blue-700'>
+                followers
+              </span>
             </div>
-            <div className="inline-flex items-center rounded-full bg-blue-900/60 px-2 py-0.5 text-xs font-semibold text-blue-200">
+            <div className='inline-flex items-center rounded-full bg-blue-900/60 px-2 py-0.5 text-xs font-semibold text-blue-200'>
               {gm.league || 'Unranked'}
             </div>
           </div>
@@ -171,11 +176,11 @@ const GrandmasterList: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#22272e] via-[#2d333b] to-[#22272e] p-6 font-sans">
-      <h1 className="mb-10 text-center text-4xl font-extrabold tracking-tight text-white drop-shadow-lg font-mono">
+    <div className='min-h-screen bg-gradient-to-br from-[#22272e] via-[#2d333b] to-[#22272e] p-6 font-sans'>
+      <h1 className='mb-10 text-center font-mono text-4xl font-extrabold tracking-tight text-white drop-shadow-lg'>
         ♛ Chess Grandmasters
       </h1>
-      <div className="mx-auto max-w-3xl overflow-x-hidden">
+      <div className='mx-auto max-w-3xl overflow-x-hidden'>
         {ready && (
           <InfiniteLoader
             isItemLoaded={isItemLoaded}
@@ -195,8 +200,8 @@ const GrandmasterList: React.FC = () => {
                 itemSize={ITEM_SIZE}
                 initialScrollOffset={initialScroll}
                 onItemsRendered={onItemsRendered}
-                width="100%"
-                className="overflow-x-hidden"
+                width='100%'
+                className='overflow-x-hidden'
               >
                 {Row}
               </List>

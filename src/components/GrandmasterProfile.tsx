@@ -191,8 +191,8 @@ const GrandmasterProfile: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#22272e] via-[#2d333b] to-[#22272e] p-6 font-sans">
-      <div className="mx-auto mb-4 w-full max-w-2xl rounded-3xl bg-[#22272e]/90 p-8 shadow-2xl ring-1 ring-[#444c56] backdrop-blur-md backdrop-saturate-150">
+    <div className='min-h-screen bg-gradient-to-br from-[#22272e] via-[#2d333b] to-[#22272e] p-6 font-sans'>
+      <div className='mx-auto mb-4 w-full max-w-2xl rounded-3xl bg-[#22272e]/90 p-8 shadow-2xl ring-1 ring-[#444c56] backdrop-blur-md backdrop-saturate-150'>
         <button
           type='button'
           onClick={() => navigate('/?fromProfile=1')}
@@ -222,15 +222,17 @@ const GrandmasterProfile: React.FC = () => {
               className='mx-auto mb-4 h-32 w-32 rounded-full border-4 border-blue-700 object-cover shadow-lg ring-4 ring-white/10'
             />
           )}
-          <h1 className='mb-1 text-4xl font-extrabold text-white drop-shadow-lg font-mono'>
+          <h1 className='mb-1 font-mono text-4xl font-extrabold text-white drop-shadow-lg'>
             {profile.name || profile.username}
           </h1>
-          <p className='text-lg text-blue-300 font-mono'>@{profile.username}</p>
+          <p className='font-mono text-lg text-blue-300'>@{profile.username}</p>
         </div>
 
         <div className='grid gap-6 md:grid-cols-2'>
           <div className='rounded-xl bg-[#2d333b]/80 p-6 backdrop-blur-md'>
-            <h2 className='mb-4 text-sm font-bold tracking-wider text-blue-400 uppercase'>Profile Info</h2>
+            <h2 className='mb-4 text-sm font-bold tracking-wider text-blue-400 uppercase'>
+              Profile Info
+            </h2>
             <div className='space-y-4'>
               {profile.title && (
                 <div className='flex items-center justify-between'>
@@ -261,7 +263,9 @@ const GrandmasterProfile: React.FC = () => {
             </div>
           </div>
           <div className='rounded-xl bg-[#2d333b]/80 p-6 backdrop-blur-md'>
-            <h2 className='mb-4 text-sm font-bold tracking-wider text-blue-400 uppercase'>Stats</h2>
+            <h2 className='mb-4 text-sm font-bold tracking-wider text-blue-400 uppercase'>
+              Stats
+            </h2>
             <div className='space-y-4'>
               <div className='flex items-center justify-between'>
                 <span className='text-gray-300'>Followers</span>
