@@ -103,8 +103,8 @@ This application scores **100%** in Performance, Accessibility, Best Practices, 
 ## 🔮 Future Improvements
 
 - **Add more exhaustive testing**: Expand unit, integration, and end-to-end tests to cover edge cases, error boundaries, and loading states.
-- **Move pagination to the server**: Offloading pagination logic to the backend would reduce client memory usage and improve performance on large datasets.
-- **Implement server-side rendering (SSR)**: Leveraging SSR (e.g., with Next.js or Vite SSR) could significantly improve time-to-content (especially LCP) and SEO.
+- **Move pagination to the server**: Offloading pagination logic to the backend would reduce client memory usage and improve performance on large datasets. This also enables advanced features like search, sorting, and filtering, since the server can efficiently query and return only the relevant data for each user request.
+- **Implement server-side rendering (SSR)**: Leveraging SSR (e.g., with Next.js or Vite SSR) could significantly improve time-to-content (especially LCP) and SEO. SSR also makes it easier to implement features like search engine-friendly URLs, server-driven search, and pre-sorted or filtered results, as the server can render the correct state for any incoming request.
 - **Preload high-priority content**: Preloading likely-to-be-visited grandmaster profiles or the first visible items could improve perceived performance.
 - **Add skeleton loaders**: Use skeleton UIs instead of spinners for a smoother and more modern loading experience.
 
