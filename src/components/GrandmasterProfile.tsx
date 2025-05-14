@@ -81,7 +81,7 @@ const GrandmasterProfile: React.FC = () => {
 
   if (loading) {
     return (
-      <div className='min-h-screen bg-gradient-to-b from-[#22272e] via-[#2d333b] to-[#22272e] p-5 font-sans'>
+      <div className='min-h-screen font-sans'>
         <div className='mx-auto flex h-64 max-w-2xl items-center justify-center rounded-xl border border-[#444c56] bg-[#2d333b] p-8 shadow-xl ring-1 ring-[#444c56]'>
           <div className='flex items-center space-x-3 text-lg text-gray-300'>
             <svg
@@ -113,7 +113,7 @@ const GrandmasterProfile: React.FC = () => {
 
   if (error) {
     return (
-      <div className='min-h-screen bg-gradient-to-b from-[#22272e] via-[#2d333b] to-[#22272e] p-5 font-sans'>
+      <div className='min-h-screen font-sans'>
         <div className='mx-auto mb-4 w-full max-w-2xl rounded-xl border border-red-500 bg-[#2d333b] p-8 shadow-xl ring-1 ring-red-500'>
           <div className='text-center text-lg text-red-400'>
             <svg
@@ -159,7 +159,7 @@ const GrandmasterProfile: React.FC = () => {
 
   if (!profile) {
     return (
-      <div className='min-h-screen bg-gradient-to-b from-[#22272e] via-[#2d333b] to-[#22272e] p-5 font-sans'>
+      <div className='min-h-screen font-sans'>
         <div className='mx-auto mb-4 w-full max-w-2xl rounded-xl border border-[#444c56] bg-[#2d333b] p-8 shadow-xl ring-1 ring-[#444c56]'>
           <div className='text-center text-lg text-gray-300'>
             No profile data available for {username}.
@@ -191,7 +191,7 @@ const GrandmasterProfile: React.FC = () => {
   }
 
   return (
-    <div className='min-h-screen bg-gradient-to-br from-[#22272e] via-[#2d333b] to-[#22272e] p-6 font-sans'>
+    <div className='min-h-screen font-sans'>
       <div className='mx-auto mb-4 w-full max-w-2xl rounded-3xl bg-[#22272e]/90 p-8 shadow-2xl ring-1 ring-[#444c56] backdrop-blur-md backdrop-saturate-150'>
         <button
           type='button'
