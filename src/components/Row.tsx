@@ -2,8 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import type { GrandMaster } from '../types/index';
 
-const INDEX_KEY = 'grandmaster_list_index';
-
 interface RowProps {
   index: number;
   style: React.CSSProperties;

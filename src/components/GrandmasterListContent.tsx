@@ -35,7 +35,9 @@ const GrandmasterListContent: React.FC<GrandmasterListContentProps> = ({
   const listRef = React.useRef<List>(null);
 
   // Callback to save scroll position
+  // Note: _outerRef is a private property of react-window's FixedSizeList
   const saveScrollPosition = (index: number) => {
+    // @ts-expect-error: _outerRef is private but stable in react-window
     const outer = listRef.current?._outerRef as HTMLDivElement | undefined;
     if (outer) {
       sessionStorage.setItem(
