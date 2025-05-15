@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import type { PlayerProfile } from '../types/index';
+import { ChessApiService } from '../services/api.service';
 
 const GrandmasterProfile: React.FC = () => {
   const { username } = useParams<{ username: string }>();
@@ -19,18 +20,8 @@ const GrandmasterProfile: React.FC = () => {
       setProfile(null);
       setTimeSinceOnline('');
       try {
-        const response = await fetch(
-          `https://api.chess.com/pub/player/${username}`
-        );
-        if (!response.ok) {
-          if (response.status === 404) {
-            throw new Error(`Player profile not found for "${username}".`);
-          }
-          throw new Error(
-            `Error fetching profile: ${response.statusText} (status: ${response.status})`
-          );
-        }
-        const data: PlayerProfile = await response.json();
+        const api = ChessApiService.getInstance();
+        const data = await api.fetchPlayerProfile(username);
         setProfile(data);
       } catch (err) {
         if (err instanceof Error) {

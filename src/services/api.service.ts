@@ -21,7 +21,7 @@ export class ChessApiService {
     return ChessApiService.instance;
   }
 
-  private async fetchPlayerProfile(username: string): Promise<PlayerProfile> {
+  async fetchPlayerProfile(username: string): Promise<PlayerProfile> {
     console.log('Fetching profile for:', username);
     const response = await fetch(
       `${this.baseUrl}/player/${username.toString()}`

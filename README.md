@@ -38,6 +38,7 @@ A modern, high-performance, accessible, and fully tested directory of chess gran
 - **SEO Optimized**: Meta tags, robots.txt, manifest, and more.
 - **100% Lighthouse Score**: Performance, Accessibility, Best Practices, SEO.
 - **Comprehensive Testing**: Unit (Vitest), E2E (Playwright), and coverage.
+- **Local cache for paginated data**: List data is cached in localStorage for fast navigation and reduced API calls, with automatic cache expiration for freshness.
 
 ---
 

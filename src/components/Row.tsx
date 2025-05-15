@@ -60,7 +60,7 @@ const Row: React.FC<RowProps> = ({
             <span className='inline-flex items-center justify-center rounded-full bg-blue-700/80 px-3 py-1 text-xs font-bold tracking-wider text-white uppercase shadow'>
               {gm.title}
             </span>
-            <span className='font-mono text-lg font-extrabold text-white drop-shadow-sm'>
+            <span className='max-w-[210px] truncate font-mono text-lg font-extrabold text-white drop-shadow-sm sm:max-w-[350px] md:max-w-none'>
               {gm.name}
             </span>
           </div>
